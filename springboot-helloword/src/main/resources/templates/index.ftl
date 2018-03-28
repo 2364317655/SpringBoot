@@ -8,7 +8,7 @@ ${name} LOVE ${value}
 	<#else>
 	其他
 </#if>
-<br>
+<br><br>
 <#list userList as user>
 ${user}<br>
 </#list>
