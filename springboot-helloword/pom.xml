@@ -3,7 +3,7 @@
   <groupId>com.yd</groupId>
   <artifactId>springboot-helloword</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <!-- 引入springboot父类依赖 -->
+  <!-- 引入springboot父类依赖 test-->
   <parent>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-parent</artifactId>
