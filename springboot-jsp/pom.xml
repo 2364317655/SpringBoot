@@ -42,7 +42,13 @@
 	        <groupId>mysql</groupId>
 	        <artifactId>mysql-connector-java</artifactId>
 	    </dependency>
-	   
+	   	
+	   	<!-- springboot jta依赖 -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-jta-atomikos</artifactId>
+	    </dependency>	
+	   	
    </dependencies>
   
 </project>

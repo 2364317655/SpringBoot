@@ -1,16 +1,15 @@
 package com.yd.datasource;
 
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.boot.jta.atomikos.AtomikosConnectionFactoryBean;
-import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import com.atomikos.jdbc.AtomikosDataSourceBean;
 import com.mysql.jdbc.jdbc2.optional.MysqlXADataSource;
 
 @Configuration
@@ -21,10 +20,11 @@ public class TestMyBatisConfig1 {
 	/**
 	 * 配置test1数据库
 	 * @return
+	 * @throws SQLException 
 	 */
 	@Bean(name="test1DataSource")
 	@Primary
-	public DataSource testDataSource(DBConfig1 testConfig){
+	public DataSource testDataSource(DBConfig1 testConfig) throws SQLException{
 		MysqlXADataSource mysqlXADataSource=new MysqlXADataSource();
 		mysqlXADataSource.setUrl(testConfig.getUrl());
 		mysqlXADataSource.setPinGlobalTxToPhysicalConnection(true);
@@ -33,7 +33,18 @@ public class TestMyBatisConfig1 {
 		mysqlXADataSource.setPinGlobalTxToPhysicalConnection(true);
 		
 		AtomikosDataSourceBean xaDataSource=new AtomikosDataSourceBean();
-		return DataSourceBuilder.create().build();
+		xaDataSource.setXaDataSource(mysqlXADataSource);
+		xaDataSource.setUniqueResourceName("test1DataSource");
+		
+		xaDataSource.setMinPoolSize(testConfig.getMinPoolSize());
+		xaDataSource.setMaxPoolSize(testConfig.getMaxPoolSize());
+		xaDataSource.setMaxLifetime(testConfig.getMaxLifetime());
+		xaDataSource.setBorrowConnectionTimeout(testConfig.getBorrowConnectionTime());
+		xaDataSource.setLoginTimeout(testConfig.getLoginTimeout());
+		xaDataSource.setMaintenanceInterval(testConfig.getMaintenanceInterval());
+		xaDataSource.setMaxIdleTime(testConfig.getMaxIdleTime());
+		xaDataSource.setTestQuery(testConfig.getTestQuery());
+		return xaDataSource;
 	}
 	
 }
