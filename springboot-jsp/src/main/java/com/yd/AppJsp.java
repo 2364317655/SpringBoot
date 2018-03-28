@@ -1,4 +1,4 @@
-package com.yd.app;
+package com.yd;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
